@@ -30,3 +30,7 @@ func (b *SelectedPath) Ls() *SelectedPath {
 	b.Entries = entries
 	return b
 }
+func (b *SelectedPath) Mkdir(new string) *SelectedPath {
+	os.MkdirAll(b.NowPath+"/"+new, 0755)
+	return b.Ls()
+}

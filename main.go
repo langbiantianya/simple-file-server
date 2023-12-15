@@ -9,7 +9,7 @@ func main() {
 		NowPath:  "./",
 		Entries:  nil,
 	}
-	res := root.Ls()
+	res := root.Ls().Mkdir("测试目录创建")
 	for _, entry := range res.Entries {
 		if entry.IsDir() {
 			println("目录:", entry.Name())
