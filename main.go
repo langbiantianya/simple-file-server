@@ -10,12 +10,12 @@ import (
 
 func main() {
 	r := gin.Default()
-	selectedPath := &server.SelectedPath{
-		RootPath: "",
-		Parent:   "",
-		NowPath:  "",
+	ctx := &server.SelectedPath{
+		RootPath: "./",
+		Parent:   "./",
+		NowPath:  "./",
 		Entries:  []fs.DirEntry{},
 	}
-	cmd.SetupRouter(r, selectedPath)
+	cmd.SetupRouter(r, ctx)
 	r.Run(":8080")
 }

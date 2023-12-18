@@ -1,22 +1,20 @@
 package web
 
 import (
-	"log"
 	"simpleFileServer/cmd/server"
 
 	"github.com/gin-gonic/gin"
 )
 
-func uploadr(c *gin.Context, b *server.SelectedPath) {
+func uploadr(c *gin.Context, b *server.SelectedPath) error {
 	file, err := c.FormFile("file")
 	if err != nil {
-		c.String(400, "未找到文件")
-		return
+		return err
 	}
 	srcFile, err := file.Open()
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer srcFile.Close()
-	b.Touch(file.Filename, srcFile)
+	return b.Touch(file.Filename, srcFile)
 }
