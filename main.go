@@ -1,21 +1,21 @@
 package main
 
-import "simpleFileServer/cmd/server"
+import (
+	"io/fs"
+	"simpleFileServer/cmd"
+	"simpleFileServer/cmd/server"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	root := server.SelectedPath{
-		RootPath: "./",
-		Parent:   "./",
-		NowPath:  "./",
-		Entries:  nil,
+	r := gin.Default()
+	selectedPath := &server.SelectedPath{
+		RootPath: "",
+		Parent:   "",
+		NowPath:  "",
+		Entries:  []fs.DirEntry{},
 	}
-	res := root.Ls().Mkdir("测试目录创建")
-	for _, entry := range res.Entries {
-		if entry.IsDir() {
-			println("目录:", entry.Name())
-		} else {
-			println("文件:", entry.Name())
-		}
-	}
-
+	cmd.SetupRouter(r, selectedPath)
+	r.Run(":8080")
 }

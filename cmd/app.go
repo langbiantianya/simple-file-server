@@ -1,12 +1,15 @@
 package cmd
 
 import (
+	"simpleFileServer/cmd/server"
+	"simpleFileServer/cmd/web"
+
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
+func SetupRouter(r *gin.Engine, b *server.SelectedPath) *gin.Engine {
 	// Disable Console Color
 	// gin.DisableConsoleColor()
-	r := gin.Default()
+	web.InitRoute(r, b)
 	return r
 }
