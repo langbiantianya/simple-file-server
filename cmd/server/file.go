@@ -25,7 +25,7 @@ func (b *SelectedPath) Ls(err error) error {
 	if err != nil {
 		return err
 	}
-	dir, err := os.Open(b.RootPath)
+	dir, err := os.Open(b.NowPath)
 	if err != nil {
 		return err
 	}
