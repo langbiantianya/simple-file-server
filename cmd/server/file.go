@@ -1,17 +1,19 @@
 package server
 
 import (
-	"bytes"
 	"fmt"
 	"io"
 	"io/fs"
 	"os"
 )
 
-type Basic interface {
-	Ls() *SelectedPath
-	Mkdir(new string) *SelectedPath
-	Touch(name string, file bytes.Reader) *SelectedPath
+func Default(rootPath string) *SelectedPath {
+	return &SelectedPath{
+		RootPath: rootPath,
+		Parent:   rootPath,
+		NowPath:  rootPath,
+		Entries:  []fs.DirEntry{},
+	}
 }
 
 type SelectedPath struct {
@@ -55,4 +57,9 @@ func (b *SelectedPath) Touch(name string, file io.Reader) error {
 		return b.Ls(err)
 	}
 	return b.Ls(err)
+}
+
+func (b *SelectedPath) IsDir() bool {
+	info, _ := os.Stat(b.NowPath)
+	return info.IsDir()
 }

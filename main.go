@@ -1,7 +1,6 @@
 package main
 
 import (
-	"io/fs"
 	"simpleFileServer/cmd"
 	"simpleFileServer/cmd/server"
 
@@ -10,12 +9,8 @@ import (
 
 func main() {
 	r := gin.Default()
-	ctx := &server.SelectedPath{
-		RootPath: "./",
-		Parent:   "./",
-		NowPath:  "./",
-		Entries:  []fs.DirEntry{},
-	}
+	r.Static("/static", "./static")
+	ctx := server.Default("./")
 	cmd.SetupRouter(r, ctx)
 	r.Run(":8080")
 }
