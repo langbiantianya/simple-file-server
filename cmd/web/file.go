@@ -47,7 +47,7 @@ func listDir(c *gin.Context, b *server.SelectedPath) error {
 			NowPath:   b.NowPath,
 			FileItems: items,
 		}
-		c.JSON(200, dir)
+		c.JSON(200, vo.Success{Data: dir})
 
 	} else {
 		c.File(b.NowPath)
