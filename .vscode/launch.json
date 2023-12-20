@@ -12,7 +12,8 @@
             "program": "${workspaceFolder}",
             "env": {
                 "GIN_MODE":"debug",
-                "WORK_HOME":"/tmp/test/"
+                "WORK_HOME":"/tmp/test/",
+                "PASSWD":"1234567"
             }
         }
     ]

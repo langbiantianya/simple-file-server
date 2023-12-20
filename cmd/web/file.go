@@ -111,13 +111,13 @@ func touch(c *gin.Context, b *server.SelectedPath, file *multipart.FileHeader) e
 }
 
 func remove(c *gin.Context, b *server.SelectedPath) error {
-	if b.Passwd == c.Param("passwd") {
+	passwd := c.Query("passwd")
+	if b.Passwd == passwd {
 		flushed(c, b)
 		c.JSON(200, vo.Success{
 			Data: "ok",
 		})
-		// return b.Remove()
-		return nil
+		return b.Remove()
 	} else {
 		return fmt.Errorf("密码错误")
 	}
