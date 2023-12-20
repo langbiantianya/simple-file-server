@@ -66,3 +66,11 @@ func (b *SelectedPath) IsDir() bool {
 	info, _ := os.Stat(b.NowPath)
 	return info.IsDir()
 }
+
+func (b *SelectedPath) Remove() error {
+	if b.IsDir() {
+		return os.RemoveAll(b.NowPath)
+	} else {
+		return os.Remove(b.NowPath)
+	}
+}
