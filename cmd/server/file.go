@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/fs"
 	"os"
+	"regexp"
 )
 
 func Default(rootPath string) *SelectedPath {
@@ -41,6 +42,8 @@ func (b *SelectedPath) Ls(err error) error {
 }
 
 func (b *SelectedPath) Mkdir(new string) error {
+	re := regexp.MustCompile(`^(./)|^(/)`)
+	new = re.ReplaceAllString(new, "")
 	err := os.MkdirAll(fmt.Sprintf("%s/%s", b.NowPath, new), 0755)
 	return b.Ls(err)
 }
