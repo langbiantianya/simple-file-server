@@ -12,7 +12,7 @@ func main() {
 	r := gin.Default()
 	workHome := os.Getenv("WORK_HOME")
 	if workHome == "" {
-		workHome = "/tmp/"
+		workHome = "./"
 	}
 	ctx := server.Default(workHome)
 	cmd.SetupRouter(r, ctx)
