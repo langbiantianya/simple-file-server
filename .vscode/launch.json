@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}",
             "env": {
                 "GIN_MODE":"debug",
-                "WORK_HOME":"/home/lbty/test/"
+                "WORK_HOME":"/tmp/"
             }
         }
     ]

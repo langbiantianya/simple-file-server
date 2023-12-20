@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"simpleFileServer/cmd"
 	"simpleFileServer/cmd/server"
 
@@ -10,7 +11,11 @@ import (
 func main() {
 	r := gin.Default()
 	r.Static("/static", "./static")
-	ctx := server.Default("./")
+	workHome := os.Getenv("WORK_HOME")
+	if workHome == "" {
+		workHome = "/tmp/"
+	}
+	ctx := server.Default(workHome)
 	cmd.SetupRouter(r, ctx)
 	r.Run(":8080")
 }
