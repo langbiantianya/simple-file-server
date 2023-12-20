@@ -109,3 +109,16 @@ func touch(c *gin.Context, b *server.SelectedPath, file *multipart.FileHeader) e
 	defer srcFile.Close()
 	return b.Touch(file.Filename, srcFile)
 }
+
+func remove(c *gin.Context, b *server.SelectedPath) error {
+	if b.Passwd == c.Param("passwd") {
+		flushed(c, b)
+		c.JSON(200, vo.Success{
+			Data: "ok",
+		})
+		// return b.Remove()
+		return nil
+	} else {
+		return fmt.Errorf("密码错误")
+	}
+}

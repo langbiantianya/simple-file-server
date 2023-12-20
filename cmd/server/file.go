@@ -8,8 +8,9 @@ import (
 	"regexp"
 )
 
-func Default(rootPath string) *SelectedPath {
+func Default(rootPath string, passwd string) *SelectedPath {
 	return &SelectedPath{
+		Passwd:   passwd,
 		RootPath: rootPath,
 		Parent:   rootPath,
 		NowPath:  rootPath,
@@ -18,6 +19,7 @@ func Default(rootPath string) *SelectedPath {
 }
 
 type SelectedPath struct {
+	Passwd   string
 	RootPath string
 	Parent   string
 	NowPath  string

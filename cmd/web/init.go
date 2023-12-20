@@ -25,6 +25,12 @@ func InitRoute(r *gin.Engine, b *server.SelectedPath) {
 		}
 	})
 	api.DELETE("/*paths", func(ctx *gin.Context) {
-
+		err := remove(ctx, b)
+		if err != nil {
+			log.Default().Println(err)
+			ctx.JSON(400, vo.Error{
+				Error: err.Error(),
+			})
+		}
 	})
 }
