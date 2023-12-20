@@ -10,7 +10,7 @@ import (
 
 func main() {
 	r := gin.Default()
-	r.Static("/static", "./static")
+	r.Static("/", "./static")
 	workHome := os.Getenv("WORK_HOME")
 	if workHome == "" {
 		workHome = "/tmp/"
