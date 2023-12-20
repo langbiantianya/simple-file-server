@@ -23,7 +23,6 @@ func InitRoute(r *gin.Engine, b *server.SelectedPath) {
 			log.Default().Println(err)
 			ctx.JSON(400, vo.Error{Error: err.Error()})
 		}
-		ctx.JSON(200, vo.Success{Data: "ok"})
 	})
 	api.DELETE("/*paths", func(ctx *gin.Context) {
 

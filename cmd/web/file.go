@@ -84,6 +84,13 @@ func upload(c *gin.Context, b *server.SelectedPath) error {
 	if flg {
 		err = mkdir(c, b, path)
 	}
+	if err != nil {
+		return err
+	}
+	flushed(c, b)
+	c.JSON(200, vo.Success{
+		Data: ls(b),
+	})
 	return err
 
 }
