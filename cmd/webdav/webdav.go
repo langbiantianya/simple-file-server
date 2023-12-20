@@ -8,7 +8,7 @@ import (
 	"golang.org/x/net/webdav"
 )
 
-func Serve(prefix string, rootDir string,
+func serve(prefix string, rootDir string,
 	validator func(c *gin.Context) bool,
 	logger func(req *http.Request, err error)) gin.HandlerFunc {
 	w := webdav.Handler{
