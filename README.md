@@ -4,6 +4,7 @@
 
 ### 起步
 
+这个项目只是我熟悉golang过程中的产物
 启动后会通过环境变量<mark>WORK_HOME</mark>获取工作目录；<mark>PASSWD</mark>获取删除文件的校验密码
 
 ### webdav
