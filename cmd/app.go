@@ -9,6 +9,9 @@ import (
 )
 
 func SetupRouter(r *gin.Engine, b *server.SelectedPath) *gin.Engine {
+	r.GET("/", func(c *gin.Context) {
+		c.String(200, "")
+	})
 	web.InitRoute(r, b)
 	webdav.InitWebDav(r, b)
 	return r
