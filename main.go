@@ -5,11 +5,13 @@ import (
 	"simpleFileServer/cmd"
 	"simpleFileServer/cmd/server"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	r := gin.Default()
+	r.Use(cors.Default())
 	workHome := os.Getenv("WORK_HOME")
 	passwd := os.Getenv("PASSWD")
 	if workHome == "" {
