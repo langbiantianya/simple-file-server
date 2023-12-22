@@ -12,8 +12,8 @@ func Default(rootPath string, passwd string) *SelectedPath {
 	return &SelectedPath{
 		Passwd:   passwd,
 		RootPath: rootPath,
-		Parent:   rootPath,
-		NowPath:  rootPath,
+		Parent:   "/",
+		NowPath:  "/",
 		Entries:  []fs.DirEntry{},
 	}
 }

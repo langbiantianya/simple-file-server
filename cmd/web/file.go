@@ -41,10 +41,16 @@ func ls(b *server.SelectedPath) vo.Dir {
 			IsDir:   info.IsDir(),
 		})
 	}
+	re := regexp.MustCompile("^" + b.RootPath)
+	parent := re.ReplaceAllString(b.Parent, "/")
+	if b.RootPath == b.NowPath {
+		parent = "/"
+	}
+	nowPath := re.ReplaceAllString(b.NowPath, "/")
 	return vo.Dir{
-		RootPath:  b.RootPath,
-		Parent:    b.Parent,
-		NowPath:   b.NowPath,
+		RootPath:  "/",
+		Parent:    parent,
+		NowPath:   nowPath,
 		FileItems: items,
 	}
 }

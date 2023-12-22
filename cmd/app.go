@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"simpleFileServer/cmd/common"
 	"simpleFileServer/cmd/server"
 	"simpleFileServer/cmd/web"
 	"simpleFileServer/cmd/webdav"
@@ -8,7 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter(r *gin.Engine, b *server.SelectedPath) *gin.Engine {
+func SetupRouter(r *gin.Engine, c *common.ServerContext) *gin.Engine {
+
+	b := server.Default(c.WorkHome, c.Passwd)
+
 	r.GET("/", func(c *gin.Context) {
 		c.String(200, "")
 	})
