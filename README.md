@@ -102,8 +102,10 @@ curl --location '127.0.0.1:8080/api/需要创建文件或文件夹的夫级路�
 
 ### 删除文件或文件夹
 
+`cm9vdDoxMjM0NTY3`这个东西其实就是`root:1234567`这个字符串用base64加密后得到的
+
 ```shell
-curl --location --request DELETE '127.0.0.1:8080/api/' \
+curl --location --request DELETE '127.0.0.1:8080/api/需要删除的文件路径' \
 --header 'Authorization: Basic cm9vdDoxMjM0NTY3'
 ```
 
