@@ -6,12 +6,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"simpleFileServer/cmd/common"
 	"simpleFileServer/cmd/server"
 
 	"github.com/gin-gonic/gin"
 )
 
-func InitWebDav(r *gin.Engine, b *server.SelectedPath) {
+func InitWebDav(r *gin.Engine, b *server.SelectedPath, ctx *common.ServerContext) {
 	r.Use(serve("/webdav", b.RootPath, func(c *gin.Context) bool {
 
 		// 获取请求头中的 Authorization 字段
@@ -34,7 +35,7 @@ func InitWebDav(r *gin.Engine, b *server.SelectedPath) {
 		}
 
 		// 检查用户名和密码是否匹配
-		if checkCredentials(username, password) {
+		if checkCredentials(username, password, ctx) {
 			// 如果匹配，继续处理请求
 			c.Next()
 		} else {
@@ -49,12 +50,6 @@ func InitWebDav(r *gin.Engine, b *server.SelectedPath) {
 			log.Default().Println(req.URL.Path, err)
 		}
 	}))
-}
-
-// 在这里定义一个 map，用于存储用户名和密码的键值对
-var users = map[string]string{
-	"username1": "password1",
-	"username2": "password2",
 }
 
 // 解析 Authorization 字段，提取用户名和密码
@@ -87,13 +82,13 @@ func b64Decode(s string) ([]byte, error) {
 }
 
 // 检查用户名和密码是否匹配
-func checkCredentials(username, password string) bool {
+func checkCredentials(username, password string, ctx *common.ServerContext) bool {
 	// 从存储的用户名和密码中查找匹配
-	storedPassword, ok := users[username]
-	if !ok {
+
+	if username != ctx.RootUser {
 		return false
 	}
 
 	// 检查密码是否匹配
-	return password == storedPassword
+	return password == ctx.Passwd
 }

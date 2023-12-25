@@ -5,7 +5,7 @@
 ### 起步
 
 这个项目只是我熟悉golang过程中的产物
-启动后会通过环境变量<mark>WORK_HOME</mark>获取工作目录；<mark>PASSWD</mark>获取删除文件的校验密码
+启动后会通过环境变量<mark>WORK_HOME</mark>获取工作目录；<mark>PASSWD</mark>获取管理员密码;<mark>ROOT_USER</mark>获取管理员用户名；
 
 ### webdav
 
@@ -13,7 +13,9 @@
 
 感谢大佬提供的方案
 
-webdav的路径是 `http://127.0.0.1:8080/webdav` 可以使用windows的资源管理器访问，目前并未添加用户权限校验
+webdav的路径是 `http://127.0.0.1:8080/webdav` ~~可以使用windows的资源管理器访问~~ （由于windows默认只支持https的webdav身份认证，所有有需要请自行修改注册表来支持)
+
+推荐使用[https://www.raidrive.com/]() 这个软件连接
 
 ## 相关接口
 
