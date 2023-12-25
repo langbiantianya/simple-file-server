@@ -99,7 +99,8 @@ curl --location '127.0.0.1:8080/api/需要创建文件或文件夹的夫级路�
 ### 删除文件或文件夹
 
 ```shell
-curl --location --request DELETE '127.0.0.1:8080/api/需要删除的文件或文件夹路径?passwd=1234567'
+curl --location --request DELETE '127.0.0.1:8080/api/' \
+--header 'Authorization: Basic cm9vdDoxMjM0NTY3'
 ```
 
 返回值也是json
