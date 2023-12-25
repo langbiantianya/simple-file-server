@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/fs"
 	"os"
+	"path/filepath"
 	"regexp"
 )
 
@@ -30,7 +31,7 @@ func (b *SelectedPath) Ls(err error) error {
 	if err != nil {
 		return err
 	}
-	dir, err := os.Open(b.NowPath)
+	dir, err := os.Open(filepath.Clean(b.NowPath))
 	if err != nil {
 		return err
 	}
@@ -46,12 +47,12 @@ func (b *SelectedPath) Ls(err error) error {
 func (b *SelectedPath) Mkdir(new string) error {
 	re := regexp.MustCompile(`^(./)|^(/)`)
 	new = re.ReplaceAllString(new, "")
-	err := os.MkdirAll(fmt.Sprintf("%s/%s", b.NowPath, new), 0755)
+	err := os.MkdirAll(filepath.Clean(fmt.Sprintf("%s/%s", b.NowPath, new)), 0755)
 	return b.Ls(err)
 }
 
 func (b *SelectedPath) Touch(name string, file io.Reader) error {
-	dstPath := fmt.Sprintf("%s/%s", b.NowPath, name)
+	dstPath := filepath.Clean(fmt.Sprintf("%s/%s", b.NowPath, name))
 	dstFile, err := os.Create(dstPath)
 	if err != nil {
 		return b.Ls(err)
@@ -65,14 +66,14 @@ func (b *SelectedPath) Touch(name string, file io.Reader) error {
 }
 
 func (b *SelectedPath) IsDir() bool {
-	info, _ := os.Stat(b.NowPath)
+	info, _ := os.Stat(filepath.Clean(b.NowPath))
 	return info.IsDir()
 }
 
 func (b *SelectedPath) Remove() error {
 	if b.IsDir() {
-		return os.RemoveAll(b.NowPath)
+		return os.RemoveAll(filepath.Clean(b.NowPath))
 	} else {
-		return os.Remove(b.NowPath)
+		return os.Remove(filepath.Clean(b.NowPath))
 	}
 }
