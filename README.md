@@ -6,6 +6,10 @@
 
 这个项目只是我熟悉golang过程中的产物
 启动后会通过环境变量<mark>WORK_HOME</mark>获取工作目录；<mark>PASSWD</mark>获取管理员密码;<mark>ROOT_USER</mark>获取管理员用户名；
+如果这些都没有指定默认值如下
+<mark>WORK_HOME</mark>:./
+<mark>PASSWD</mark>:123456
+<mark>ROOT_USER</mark>:root
 
 ### webdav
 
