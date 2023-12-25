@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"simpleFileServer/cmd/common"
-	"simpleFileServer/cmd/server"
 	"simpleFileServer/cmd/web"
 	"simpleFileServer/cmd/webdav"
 
@@ -10,10 +9,8 @@ import (
 )
 
 func SetupRouter(r *gin.Engine, c *common.ServerContext) *gin.Engine {
-
-	b := server.Default(c.WorkHome, c.Passwd)
-	web.InitRoute(r, b)
-	webdav.InitWebDav(r, b, c)
+	web.InitRoute(r, c)
+	webdav.InitWebDav(r, c)
 	return r
 }
 

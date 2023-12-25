@@ -9,9 +9,9 @@ import (
 	"regexp"
 )
 
-func Default(rootPath string, passwd string) *SelectedPath {
+func Default(rootPath string) *SelectedPath {
 	return &SelectedPath{
-		Passwd:   passwd,
+		// Passwd:   passwd,
 		RootPath: rootPath,
 		Parent:   "/",
 		NowPath:  "/",
@@ -71,9 +71,14 @@ func (b *SelectedPath) IsDir() bool {
 }
 
 func (b *SelectedPath) Remove() error {
+	path := filepath.Clean(b.NowPath)
 	if b.IsDir() {
-		return os.RemoveAll(filepath.Clean(b.NowPath))
+		if path == "./" || path == "/" || path == filepath.Clean(b.RootPath) {
+			return fmt.Errorf("禁止删除该文件夹")
+		} else {
+			return os.RemoveAll(path)
+		}
 	} else {
-		return os.Remove(filepath.Clean(b.NowPath))
+		return os.Remove(path)
 	}
 }
