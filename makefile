@@ -1,5 +1,5 @@
 goreleaser-snapshot:
-	goreleaser release --snapshot --clean
+	goreleaser build
 
 docker-build:goreleaser-snapshot
 	docker build -f ./dockerfile -t simplefile-server:latest .
