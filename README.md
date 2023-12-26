@@ -11,6 +11,14 @@
 <mark>PASSWD</mark>:123456
 <mark>ROOT_USER</mark>:root
 
+### 构建指北
+
+先确保构建环境安装了goreleaser与make<u>(这个不是必须的)</u>
+
+然后运行`goreleaser release --skip=publish --clean`或者`make goreleaser-snapshot`
+
+docker 镜像构建请参考Makefile中的指令
+
 ### webdav
 
 这块的思路来源是[fungaren/gin-webdav: WebDAV server for gin-gonic (github.com)](https://github.com/fungaren/gin-webdav)
@@ -119,7 +127,7 @@ curl --location --request DELETE '127.0.0.1:8080/api/需要删除的文件路径
 
 ## TODO
 
-- [ ] docker镜像构建
+- [x] docker镜像构建
 
 - [ ] web的前端页面
 
