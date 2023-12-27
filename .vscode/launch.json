@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}",
             "env": {
                 "GIN_MODE":"debug",
-                "WORK_HOME":"/tmp/test/",
+                "WORK_HOME":"/home/lbty/code/simple-file-server/",
                 "PASSWD":"1234567"
             }
         }
