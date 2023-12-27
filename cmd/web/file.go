@@ -59,8 +59,10 @@ func listDir(c *gin.Context, b *server.SelectedPath) error {
 	paths := c.Params
 	path, _ := paths.Get("paths")
 	path = path[1:]
-	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, path)
-	pattern := "^(.*/)[^/]+/?$"
+	pattern := "^(.*/|/)"
+	reg := regexp.MustCompile(pattern)
+	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, reg.ReplaceAllString(path, ""))
+	pattern = "^(.*/)[^/]+/?$"
 	regex := regexp.MustCompile(pattern)
 	matches := regex.FindStringSubmatch(b.NowPath)
 	if len(matches) > 1 {
