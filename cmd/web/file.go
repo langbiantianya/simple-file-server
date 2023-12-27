@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"mime/multipart"
+	"path/filepath"
 	"regexp"
 	"simpleFileServer/cmd/server"
 	"simpleFileServer/cmd/vo"
@@ -15,10 +16,8 @@ func pretreatment(c *gin.Context, b *server.SelectedPath) {
 	paths := c.Params
 	path, _ := paths.Get("paths")
 	path = path[1:]
-	pattern := "^(.*/|/)"
-	reg := regexp.MustCompile(pattern)
-	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, reg.ReplaceAllString(path, ""))
-	pattern = "^(.*/)[^/]+/?$"
+	b.NowPath = filepath.Clean(fmt.Sprintf("%s%s", b.RootPath, path))
+	pattern := "^(.*/)[^/]+/?$"
 	regex := regexp.MustCompile(pattern)
 	matches := regex.FindStringSubmatch(b.NowPath)
 	if len(matches) > 1 {
