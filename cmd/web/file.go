@@ -11,17 +11,23 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func flushed(c *gin.Context, b *server.SelectedPath) error {
+func pretreatment(c *gin.Context, b *server.SelectedPath) {
 	paths := c.Params
 	path, _ := paths.Get("paths")
 	path = path[1:]
-	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, path)
-	pattern := "^(.*/)[^/]+/?$"
+	pattern := "^(.*/|/)"
+	reg := regexp.MustCompile(pattern)
+	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, reg.ReplaceAllString(path, ""))
+	pattern = "^(.*/)[^/]+/?$"
 	regex := regexp.MustCompile(pattern)
 	matches := regex.FindStringSubmatch(b.NowPath)
 	if len(matches) > 1 {
 		b.Parent = matches[1]
 	}
+}
+
+func flushed(c *gin.Context, b *server.SelectedPath) error {
+	pretreatment(c, b)
 	return b.Ls(nil)
 }
 
@@ -56,18 +62,7 @@ func ls(b *server.SelectedPath) vo.Dir {
 }
 
 func listDir(c *gin.Context, b *server.SelectedPath) error {
-	paths := c.Params
-	path, _ := paths.Get("paths")
-	path = path[1:]
-	pattern := "^(.*/|/)"
-	reg := regexp.MustCompile(pattern)
-	b.NowPath = fmt.Sprintf("%s%s", b.RootPath, reg.ReplaceAllString(path, ""))
-	pattern = "^(.*/)[^/]+/?$"
-	regex := regexp.MustCompile(pattern)
-	matches := regex.FindStringSubmatch(b.NowPath)
-	if len(matches) > 1 {
-		b.Parent = matches[1]
-	}
+	pretreatment(c, b)
 	if b.IsDir() {
 		err := b.Ls(nil)
 		if err != nil {
