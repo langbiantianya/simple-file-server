@@ -46,6 +46,7 @@ func ls(b *server.SelectedPath) vo.Dir {
 			IsDir:   info.IsDir(),
 		})
 	}
+	// todo 优化下面的这一坨
 	re := regexp.MustCompile("^" + b.RootPath)
 	parent := re.ReplaceAllString(b.Parent, "/")
 	nowPath := re.ReplaceAllString(b.NowPath, "/")
