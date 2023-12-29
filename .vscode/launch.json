@@ -12,7 +12,7 @@
             "program": "${workspaceFolder}",
             "env": {
                 "GIN_MODE":"debug",
-                "WORK_HOME":"/tmp/test/",
+                "WORK_HOME":"D:/测试文件夹/",
                 "PASSWD":"1234567"
             }
         }
