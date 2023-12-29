@@ -11,6 +11,7 @@ import (
 
 func InitWebDav(r *gin.Engine, ctx *common.ServerContext) {
 	r.Use(serve("/webdav", ctx.WorkHome, func(c *gin.Context) bool {
+		log.Default().Println(c.Request.Method)
 		return plugins.BasicAuth(c, ctx)
 	}, func(req *http.Request, err error) {
 		if err != nil {
