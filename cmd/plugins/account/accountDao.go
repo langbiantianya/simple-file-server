@@ -1,15 +1,14 @@
-package plugins
+package account
 
 import (
-	"log"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
 )
 
 type Account struct {
-	Model     Model `gorm:"embedded"`
-	Username  string
+	Model     Model  `gorm:"embedded"`
+	Username  string `gorm:"unique"`
 	Password  string
 	Identity  Role
 	Question1 string
@@ -37,7 +36,7 @@ const (
 func (acctx *AccountCtx) Add(account *Account) error {
 	passwd, err := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 	if err != nil {
-		log.Default().Panicln(err)
+		return err
 	}
 	account.Password = string(passwd)
 	return acctx.Db.Create(account).Error

@@ -5,8 +5,9 @@ import (
 )
 
 type ServerContext struct {
-	WorkHome string
-	RootUser string
-	Passwd   string
-	Acctx    *account.AccountCtx
+	WorkHome     string
+	RootUser     string
+	Passwd       string
+	MultipleUser bool
+	Acctx        *account.AccountCtx
 }

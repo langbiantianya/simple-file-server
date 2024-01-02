@@ -2,8 +2,8 @@ package common
 
 import (
 	"os"
-	"simpleFileServer/cmd/plugins"
-	account "simpleFileServer/cmd/plugins/account"
+	"simpleFileServer/cmd/plugins/account"
+	"simpleFileServer/cmd/plugins/database"
 	"strconv"
 )
 
@@ -30,7 +30,7 @@ func InitContext() *ServerContext {
 	}
 	if MultipleUser {
 		ctx.Acctx = &account.AccountCtx{
-			Db: plugins.InitSqlite(),
+			Db: database.InitSqlite(),
 		}
 	}
 	return ctx
