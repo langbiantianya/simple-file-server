@@ -8,7 +8,7 @@ import (
 )
 
 func InitContext() *ServerContext {
-	MultipleUser, err := strconv.ParseBool("MULTIPLE_USERS")
+	MultipleUser, err := strconv.ParseBool(os.Getenv("MULTIPLE_USERS"))
 	if err != nil {
 		MultipleUser = false
 	}

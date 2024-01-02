@@ -13,6 +13,8 @@ func main() {
 	r := gin.Default()
 	r.Use(cors.Default())
 	plugins.InitWebStatic(r)
-	cmd.SetupRouter(r, common.InitContext())
+	ctx := common.InitContext()
+	cmd.SetupDatabase(ctx)
+	cmd.SetupRouter(r, ctx)
 	r.Run(":8080")
 }

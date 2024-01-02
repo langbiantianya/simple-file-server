@@ -11,9 +11,10 @@
             "mode": "auto",
             "program": "${workspaceFolder}",
             "env": {
-                "GIN_MODE":"debug",
-                "WORK_HOME":"D:/测试文件夹/",
-                "PASSWD":"1234567"
+                "GIN_MODE": "debug",
+                "WORK_HOME": "D:/测试文件夹/",
+                "PASSWD": "1234567",
+                "MULTIPLE_USERS": "true"
             }
         }
     ]
