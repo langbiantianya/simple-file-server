@@ -1,5 +1,8 @@
-goreleaser-snapshot:
+goreleaser-release:
 	goreleaser release --skip=publish --clean
+
+goreleaser-snapshot:
+	goreleaser --snapshot --skip=publish --clean --skip-validate
 
 docker-debian-bookworm-build:goreleaser-snapshot
 	docker build -f ./deploy/debian/Dockerfile -t simplefile-server:debian-bookworm .
