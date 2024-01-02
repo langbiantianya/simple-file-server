@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"simpleFileServer/cmd/common"
+	"simpleFileServer/cmd/plugins/webdav"
 	"simpleFileServer/cmd/web"
-	"simpleFileServer/cmd/webdav"
 
 	"github.com/gin-gonic/gin"
 )
