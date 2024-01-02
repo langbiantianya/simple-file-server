@@ -1,13 +1,16 @@
 package plugins
 
 import (
+	"log"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
 
-func InitSqlite() {
+func InitSqlite() *gorm.DB {
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
 	if err != nil {
-		panic("failed to connect database")
+		log.Default().Fatalln("无法连接sqlite数据库")
 	}
+	return db
 }
