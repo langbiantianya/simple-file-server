@@ -33,7 +33,7 @@ const (
 	User
 )
 
-func (acctx *AccountCtx) Add(account *Account) error {
+func (acctx *AccountCtx) add(account *Account) error {
 	passwd, err := bcrypt.GenerateFromPassword([]byte(account.Password), bcrypt.DefaultCost)
 	if err != nil {
 		return err
@@ -42,22 +42,22 @@ func (acctx *AccountCtx) Add(account *Account) error {
 	return acctx.Db.Create(account).Error
 }
 
-func (acctx *AccountCtx) Update(account *Account) error {
+func (acctx *AccountCtx) update(account *Account) error {
 	return acctx.Db.Model(account).Updates(account).Error
 }
 
-func (acctx *AccountCtx) Delete(account *Account) error {
+func (acctx *AccountCtx) delete(account *Account) error {
 	return acctx.Db.Delete(&Account{}, account.Model.ID).Error
 }
 
-func (acctx *AccountCtx) FindOne(account *Account) *Account {
-	var res *Account
-	acctx.Db.Where(&Account{}, account).First(res)
-	return res
+func (acctx *AccountCtx) findOne(account *Account) *Account {
+	var res Account
+	acctx.Db.Where(&Account{}, account).First(&res)
+	return &res
 }
 
-func (acctx *AccountCtx) List(account *Account) *[]Account {
-	var res *[]Account
-	acctx.Db.Where(&Account{}, account).Find(res)
-	return res
+func (acctx *AccountCtx) list(account *Account) *[]Account {
+	var res []Account
+	acctx.Db.Where(&Account{}, account).Find(&res)
+	return &res
 }
