@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"net/http"
 	"simpleFileServer/cmd/common"
+	"simpleFileServer/cmd/plugins/account"
 
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func Default(ctx *common.ServerContext) gin.HandlerFunc {
@@ -35,9 +37,8 @@ func BasicAuth(c *gin.Context, ctx *common.ServerContext) bool {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return false
 	}
-
 	// 检查用户名和密码是否匹配
-	if checkCredentials(username, password, ctx) {
+	if checkBcryptCredentials(username, password, ctx) || checkCredentials(username, password, ctx) {
 		// 如果匹配，继续处理请求
 		c.Next()
 	} else {
@@ -87,4 +88,12 @@ func checkCredentials(username, password string, ctx *common.ServerContext) bool
 
 	// 检查密码是否匹配
 	return password == ctx.Passwd
+}
+
+func checkBcryptCredentials(username, password string, ctx *common.ServerContext) bool {
+	return account.VerifyPassword(ctx.Acctx, username, func(hashPasswd string) bool {
+		err := bcrypt.CompareHashAndPassword([]byte(hashPasswd), []byte(password))
+		return err == nil
+	})
+
 }

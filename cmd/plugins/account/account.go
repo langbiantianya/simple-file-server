@@ -2,18 +2,11 @@ package account
 
 import (
 	"log"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
-func VerifyPassword(acctx *AccountCtx, account *Account) bool {
-	res := acctx.findOne(&Account{Username: account.Username})
-	err := bcrypt.CompareHashAndPassword([]byte(res.Password), []byte(account.Password))
-	if err != nil {
-		return false
-	} else {
-		return true
-	}
+func VerifyPassword(acctx *AccountCtx, username string, Verify func(hashPasswd string) bool) bool {
+	res := acctx.findOne(&Account{Username: username})
+	return Verify(res.Password)
 }
 
 func Add(acctx *AccountCtx, account *Account) {

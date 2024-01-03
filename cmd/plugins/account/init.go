@@ -1,9 +1,6 @@
 package account
 
 import (
-	"log"
-
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -19,13 +16,13 @@ func (acctx *AccountCtx) InitDb() {
 func (acctx *AccountCtx) InitRoot(username, passwd string) {
 	matedata := acctx.findMatedata()
 	if matedata == nil || !matedata.Initialized {
-		hash, err := bcrypt.GenerateFromPassword([]byte(passwd), bcrypt.DefaultCost)
-		if err != nil {
-			log.Default().Fatalln(err)
-		}
+		// hash, err := bcrypt.GenerateFromPassword([]byte(passwd), bcrypt.DefaultCost)
+		// if err != nil {
+		// 	log.Default().Fatalln(err)
+		// }
 		account := &Account{
 			Username: username,
-			Password: string(hash),
+			Password: passwd,
 			Identity: Root,
 		}
 		acctx.add(account)
