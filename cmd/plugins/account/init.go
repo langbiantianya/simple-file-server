@@ -1,6 +1,8 @@
 package account
 
 import (
+	"simpleFileServer/cmd/plugins/rights"
+
 	"gorm.io/gorm"
 )
 
@@ -16,14 +18,11 @@ func (acctx *AccountCtx) InitDb() {
 func (acctx *AccountCtx) InitRoot(username, passwd string) {
 	matedata := acctx.findMatedata()
 	if matedata == nil || !matedata.Initialized {
-		// hash, err := bcrypt.GenerateFromPassword([]byte(passwd), bcrypt.DefaultCost)
-		// if err != nil {
-		// 	log.Default().Fatalln(err)
-		// }
 		account := &Account{
 			Username: username,
 			Password: passwd,
 			Identity: Root,
+			Rights:   rights.R | rights.W | rights.D,
 		}
 		acctx.add(account)
 		acctx.addMatedata()

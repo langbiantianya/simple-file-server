@@ -1,6 +1,7 @@
 package account
 
 import (
+	"simpleFileServer/cmd/plugins/rights"
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
@@ -18,6 +19,7 @@ type Account struct {
 	Question3 string
 	Answer3   string
 	Two2FA    string
+	Rights    rights.FileOperations
 }
 
 type Model struct {

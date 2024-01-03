@@ -2,11 +2,16 @@ package account
 
 import (
 	"log"
+	"simpleFileServer/cmd/plugins/rights"
 )
 
-func VerifyPassword(acctx *AccountCtx, username string, Verify func(hashPasswd string) bool) bool {
+func VerifyRights(acctx *AccountCtx, username string, verify func(operations rights.FileOperations) bool) bool {
 	res := acctx.findOne(&Account{Username: username})
-	return Verify(res.Password)
+	return verify(res.Rights)
+}
+func VerifyPassword(acctx *AccountCtx, username string, verify func(hashPasswd string) bool) bool {
+	res := acctx.findOne(&Account{Username: username})
+	return verify(res.Password)
 }
 
 func Add(acctx *AccountCtx, account *Account) {

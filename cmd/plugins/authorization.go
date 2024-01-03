@@ -31,7 +31,7 @@ func BasicAuth(c *gin.Context, ctx *common.ServerContext) bool {
 	}
 
 	// 解析 Authorization 字段
-	username, password, err := parseAuthHeader(authHeader)
+	username, password, err := ParseAuthHeader(authHeader)
 	if err != nil {
 		// 如果解析失败，返回 400 Bad Request
 		c.AbortWithStatus(http.StatusBadRequest)
@@ -50,7 +50,7 @@ func BasicAuth(c *gin.Context, ctx *common.ServerContext) bool {
 }
 
 // 解析 Authorization 字段，提取用户名和密码
-func parseAuthHeader(authHeader string) (string, string, error) {
+func ParseAuthHeader(authHeader string) (string, string, error) {
 	const prefix = "Basic "
 
 	// 检查 Authorization 字段的前缀是否为 "Basic "

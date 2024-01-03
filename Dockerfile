@@ -13,7 +13,7 @@ WORKDIR /app
 COPY ./dist/simple-file-server_linux_amd64_v1/simple-file-server app
 COPY ./static/dist static
 
-ENV WORK_HOME=/tmp/ PASSWD=123456
+ENV WORK_HOME=/tmp/ PASSWD=123456 GIN_MODE=release
 
 ENTRYPOINT [ "./app" ]
 

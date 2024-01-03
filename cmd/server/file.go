@@ -59,9 +59,6 @@ func (b *SelectedPath) Touch(name string, file io.Reader) error {
 	}
 	defer dstFile.Close()
 	_, err = io.Copy(dstFile, file)
-	if err != nil {
-		return b.Ls(err)
-	}
 	return b.Ls(err)
 }
 
