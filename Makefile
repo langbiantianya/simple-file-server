@@ -1,12 +1,13 @@
 docker-goreleaser-snapshot:
 	docker run \
 		--rm \
-		-e CGO_ENABLED=1 \
+		-e CGO_ENABLED=1\
+		-e GO111MODULE=on\
+		-e GOPROXY=https://goproxy.cn \
 		-v `pwd`:/go/src/simple-file-server \
-		-v `pwd`/sysroot:/sysroot \
 		-w /go/src/simple-file-server \
 		goreleaser/goreleaser-cross:latest \
-		--clean --skip=validate --skip=publish
+		--snapshot --skip=publish --clean --skip-validate
 
 goreleaser-release:
 	goreleaser release --skip=publish --clean

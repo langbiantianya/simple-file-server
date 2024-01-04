@@ -7,7 +7,9 @@
 # vim: set ts=2 sw=2 tw=0 fo=cnqoj
 
 version: 1
-
+env:
+  - GO111MODULE=on
+  - GOPROXY=https://goproxy.cn
 before:
   hooks:
     # You may remove this if you don't use go modules.
@@ -16,12 +18,33 @@ before:
     - go generate ./...
 
 builds:
-  - env:
-      - CGO_ENABLED=0
+  - id: linux-amd64
+    env:
+      - CGO_ENABLED=1
+      - CC=x86_64-linux-gnu-gcc
+      - CXX=x86_64-linux-gnu-gcc
+    main: ./main.go
     goos:
       - linux
-      - windows
-      - darwin
+    goarch:
+      - amd64
+  - id: linux-arm64
+    env:
+      - CGO_ENABLED=1
+      - CC=aarch64-linux-gnu-gcc
+      - CXX=aarch64-linux-gnu-g++
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - arm64
+  # - env:
+  #     - CGO_ENABLED=1
+  #   goos:
+  #     - linux
+  #     - windows
+  #     - darwin
+    
 
 archives:
   - format: tar.gz
