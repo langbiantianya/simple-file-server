@@ -33,5 +33,4 @@ docker-opensuseTumbleweed-build:docker-goreleaser-release
 docker-openEulr-20.03-build:docker-goreleaser-release
 	docker build -f ./deploy/openEulr/Dockerfile -t simplefile-server:openeulr-20.03-lts .
 
-docker-build:docker-openEulr-20.03-build
-	docker build -f ./deploy/openEulr/Dockerfile -t simplefile-server:latest .
+docker-build:docker-debian-bookworm-build
