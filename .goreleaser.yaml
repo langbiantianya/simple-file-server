@@ -38,13 +38,90 @@ builds:
       - linux
     goarch:
       - arm64
-  # - env:
+  - id: linux-arm
+    env:
+      - CGO_ENABLED=1
+      - CC=arm-linux-gnueabihf-gcc
+      - CXX=arm-linux-gnueabihf-g++
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - arm
+    goarm:
+      - "5"
+      - "6"
+      - "7"
+  - id: linux-s390x
+    env:
+      - CGO_ENABLED=1
+      - CC=s390x-linux-gnu-gcc
+      - CXX=s390x-linux-gnu-g++
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - s390x
+  - id: darwin-amd64
+    env:
+      - CGO_ENABLED=1
+      - CC=o64-clang
+      - CXX=o64-clang++
+    main: ./main.go
+    goos:
+      - darwin
+    goarch:
+      - amd64
+  - id: darwin-arm64
+    env:
+      - CGO_ENABLED=1
+      - CC=oa64-clang
+      - CXX=oa64-clang++
+    main: ./main.go
+    goos:
+      - darwin
+    goarch:
+      - arm64
+  - id: windows-arm64
+    env:
+      - CGO_ENABLED=1
+      - CC=/llvm-mingw/bin/aarch64-w64-mingw32-gcc
+      - CXX=/llvm-mingw/bin/aarch64-w64-mingw32-g++
+    main: ./main.go
+    goos:
+      - windows
+    goarch:
+      - arm64
+  - id: windows-amd64
+    env:
+      - CGO_ENABLED=1
+      - CC=x86_64-w64-mingw32-gcc
+      - CXX=x86_64-w64-mingw32-g++
+    main: ./main.go
+    goos:
+      - windows
+    goarch:
+      - amd64
+  # - id: linux-mips
+  #   env:
   #     - CGO_ENABLED=1
+  #     - CC=mips-linux-gcc
+  #     - CXX=mips-linux-g++
+  #   main: ./main.go
   #   goos:
   #     - linux
-  #     - windows
-  #     - darwin
-    
+  #   goarch:
+  #     - mips
+  # - id: linux-mips64
+  #   env:
+  #     - CGO_ENABLED=1
+  #     - CC=mips64-linux-gcc
+  #     - CXX=mips64-linux-g++
+  #   main: ./main.go
+  #   goos:
+  #     - linux
+  #   goarch:
+  #     - mips64
 
 archives:
   - format: tar.gz
