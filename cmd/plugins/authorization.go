@@ -37,6 +37,7 @@ func BasicAuth(c *gin.Context, ctx *common.ServerContext) bool {
 		c.AbortWithStatus(http.StatusBadRequest)
 		return false
 	}
+	// TODO 重构👇
 	// 检查用户名和密码是否匹配
 	if checkBcryptCredentials(username, password, ctx) || checkCredentials(username, password, ctx) {
 		// 如果匹配，继续处理请求
