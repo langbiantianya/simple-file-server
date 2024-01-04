@@ -10,7 +10,7 @@ RUN sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debi
 
 WORKDIR /app
 
-COPY ./dist/simple-file-server_linux_amd64_v1/simple-file-server app
+COPY ./dist/linux-amd64_linux_amd64_v1/simple-file-server app
 COPY ./static/dist static
 
 ENV WORK_HOME=/tmp/ PASSWD=123456 GIN_MODE=release

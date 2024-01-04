@@ -8,7 +8,7 @@ RUN dnf -y update \
 
 WORKDIR /app
 
-COPY ./dist/simple-file-server_linux_amd64_v1/simple-file-server app
+COPY ./dist/linux-amd64_linux_amd64_v1/simple-file-server app
 COPY ./static/dist static
 
 ENV WORK_HOME=/tmp PASSWD=123456 GIN_MODE=release
