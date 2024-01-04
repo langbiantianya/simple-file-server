@@ -1,3 +1,13 @@
+docker-goreleaser-snapshot:
+	docker run \
+		--rm \
+		-e CGO_ENABLED=1 \
+		-v `pwd`:/go/src/simple-file-server \
+		-v `pwd`/sysroot:/sysroot \
+		-w /go/src/simple-file-server \
+		goreleaser/goreleaser-cross:latest \
+		--clean --skip=validate --skip=publish
+
 goreleaser-release:
 	goreleaser release --skip=publish --clean
 

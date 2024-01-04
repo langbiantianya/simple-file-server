@@ -14,7 +14,7 @@
                 "GIN_MODE": "debug",
                 "WORK_HOME": "/tmp",
                 "PASSWD": "1234567",
-                "MULTIPLE_USERS": "true"
+                "MULTIPLE_USERS": "false"
             }
         }
     ]

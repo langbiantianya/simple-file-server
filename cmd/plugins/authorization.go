@@ -91,9 +91,13 @@ func checkCredentials(username, password string, ctx *common.ServerContext) bool
 }
 
 func checkBcryptCredentials(username, password string, ctx *common.ServerContext) bool {
-	return account.VerifyPassword(ctx.Acctx, username, func(hashPasswd string) bool {
-		err := bcrypt.CompareHashAndPassword([]byte(hashPasswd), []byte(password))
-		return err == nil
-	})
+	if ctx.MultipleUser {
+		return account.VerifyPassword(ctx.Acctx, username, func(hashPasswd string) bool {
+			err := bcrypt.CompareHashAndPassword([]byte(hashPasswd), []byte(password))
+			return err == nil
+		})
+	} else {
+		return false
+	}
 
 }
