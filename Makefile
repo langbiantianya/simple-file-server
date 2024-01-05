@@ -18,19 +18,31 @@ docker-goreleaser-release:
 		-w /go/src/simple-file-server \
 		goreleaser/goreleaser-cross:latest \
 		release --skip=publish --clean
-goreleaser-release:
-	goreleaser release --skip=publish --clean
 
-goreleaser-snapshot:
-	goreleaser --snapshot --skip=publish --clean --skip-validate
+# goreleaser-release:
+# 	goreleaser release --skip=publish --clean
 
-docker-debian-bookworm-build:docker-goreleaser-release
-	docker build -f ./deploy/debian/Dockerfile -t simplefile-server:debian-bookworm .
+# goreleaser-snapshot:
+# 	goreleaser --snapshot --skip=publish --clean --skip-validate
 
-docker-opensuseTumbleweed-build:docker-goreleaser-release
-	docker build -f ./deploy/opensuse/Dockerfile -t simplefile-server:opensuse-tumbleweed .
+docker-debian-bookworm-snapshot:docker-goreleaser-snapshot
+	docker build -f ./deploy/debian/Dockerfile -t simplefile-server:debian-bookworm-snapshot .
 
-docker-openEulr-20.03-build:docker-goreleaser-release
-	docker build -f ./deploy/openEulr/Dockerfile -t simplefile-server:openeulr-20.03-lts .
+docker-debian-bookworm-release:docker-goreleaser-release
+	docker build -f ./deploy/debian/Dockerfile -t simplefile-server:debian-bookworm-release .
 
-docker-build:docker-debian-bookworm-build
+docker-opensuseTumbleweed-snapshot:docker-goreleaser-snapshot
+	docker build -f ./deploy/opensuse/Dockerfile -t simplefile-server:opensuse-tumbleweed-snapshot .
+
+docker-opensuseTumbleweed-release:docker-goreleaser-release
+	docker build -f ./deploy/opensuse/Dockerfile -t simplefile-server:opensuse-tumbleweed-release .
+
+docker-openEulr-snapshot:docker-goreleaser-snapshot
+	docker build -f ./deploy/openEulr/Dockerfile -t simplefile-server:openeulr-snapshot .
+
+docker-openEulr-release:docker-goreleaser-release
+	docker build -f ./deploy/openEulr/Dockerfile -t simplefile-server:openeulr-release .
+
+docker-build-snapshot:docker-openEulr-snapshot
+
+docker-build-release:docker-openEulr-release
