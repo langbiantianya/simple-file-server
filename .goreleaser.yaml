@@ -62,6 +62,16 @@ builds:
       - linux
     goarch:
       - s390x
+  - id: linux-loong64
+    env:
+      - CGO_ENABLED=1
+      - CC=loongarch64-linux-gnu-gcc
+      - CXX=loongarch64-linux-gnu-g++
+    main: ./main.go
+    goos:
+      - linux
+    goarch:
+      - loong64
   - id: darwin-amd64
     env:
       - CGO_ENABLED=1
