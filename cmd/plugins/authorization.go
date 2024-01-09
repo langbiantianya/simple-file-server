@@ -9,7 +9,6 @@ import (
 	"simpleFileServer/cmd/plugins/account"
 
 	"github.com/gin-gonic/gin"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func Default(ctx *common.ServerContext) gin.HandlerFunc {
@@ -60,7 +59,7 @@ func ParseAuthHeader(authHeader string) (string, string, error) {
 	}
 
 	// 解码 Base64 编码的凭证部分
-	credentials, err := b64Decode(authHeader[len(prefix):])
+	credentials, err := base64.StdEncoding.DecodeString(authHeader[len(prefix):])
 	if err != nil {
 		return "", "", fmt.Errorf("invalid auth header")
 	}
@@ -74,10 +73,10 @@ func ParseAuthHeader(authHeader string) (string, string, error) {
 	return string(pair[0]), string(pair[1]), nil
 }
 
-// Base64 解码
-func b64Decode(s string) ([]byte, error) {
-	return base64.StdEncoding.DecodeString(s)
-}
+// // Base64 解码
+// func b64Decode(s string) ([]byte, error) {
+// 	return base64.StdEncoding.DecodeString(s)
+// }
 
 // 检查用户名和密码是否匹配
 func checkCredentials(username, password string, ctx *common.ServerContext) bool {
@@ -93,10 +92,7 @@ func checkCredentials(username, password string, ctx *common.ServerContext) bool
 
 func checkBcryptCredentials(username, password string, ctx *common.ServerContext) bool {
 	if ctx.MultipleUser {
-		return account.VerifyPassword(ctx.Acctx, username, func(hashPasswd string) bool {
-			err := bcrypt.CompareHashAndPassword([]byte(hashPasswd), []byte(password))
-			return err == nil
-		})
+		return account.DefaultVerifyPassword(ctx.Acctx, username, password)
 	} else {
 		return false
 	}
