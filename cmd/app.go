@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"simpleFileServer/cmd/common"
+	"simpleFileServer/cmd/plugins/account"
 	"simpleFileServer/cmd/plugins/webdav"
 	"simpleFileServer/cmd/web"
 
@@ -14,9 +15,10 @@ func SetupRouter(r *gin.Engine, c *common.ServerContext) *gin.Engine {
 	return r
 }
 func SetupDatabase(c *common.ServerContext) {
-	if c.MultipleUser && c.Acctx != nil {
-		c.Acctx.InitDb()
-		c.Acctx.InitRoot(c.RootUser, c.Passwd)
+	if c.MultipleUser && c.Db != nil {
+		acctx := account.DefualtCtx(c)
+		acctx.InitDb()
+		acctx.InitRoot(c.RootUser, c.Passwd)
 	}
 }
 

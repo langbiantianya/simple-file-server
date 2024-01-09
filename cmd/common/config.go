@@ -1,11 +1,13 @@
 package common
 
-import "simpleFileServer/cmd/plugins/account"
+import (
+	"gorm.io/gorm"
+)
 
 type ServerContext struct {
 	WorkHome     string
 	RootUser     string
 	Passwd       string
 	MultipleUser bool
-	Acctx        *account.AccountCtx
+	Db           *gorm.DB
 }

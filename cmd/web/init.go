@@ -11,7 +11,7 @@ import (
 )
 
 func InitRoute(r *gin.Engine, ctx *common.ServerContext) {
-	api := r.Group("/api")
+	api := r.Group("/api/v1/file")
 	api.GET("/*paths", func(c *gin.Context) {
 		err := listDir(c, server.Default(ctx.WorkHome))
 		if err != nil {

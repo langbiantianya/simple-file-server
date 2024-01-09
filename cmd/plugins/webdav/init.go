@@ -16,7 +16,7 @@ func InitWebDav(r *gin.Engine, ctx *common.ServerContext) {
 		username, _, _ := plugins.ParseAuthHeader(c.Request.Header.Get("Authorization"))
 		// TODO 👇要重构
 		if ctx.MultipleUser {
-			return plugins.BasicAuth(c, ctx) && account.VerifyRights(ctx.Acctx, username, func(operations rights.FileOperations) bool {
+			return plugins.BasicAuth(c, ctx) && account.VerifyRights(account.DefualtCtx(ctx), username, func(operations rights.FileOperations) bool {
 				return rights.Verify(c, operations)
 			})
 		} else {

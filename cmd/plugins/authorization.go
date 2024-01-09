@@ -92,7 +92,7 @@ func checkCredentials(username, password string, ctx *common.ServerContext) bool
 
 func checkBcryptCredentials(username, password string, ctx *common.ServerContext) bool {
 	if ctx.MultipleUser {
-		return account.DefaultVerifyPassword(ctx.Acctx, username, password)
+		return account.DefaultVerifyPassword(account.DefualtCtx(ctx), username, password)
 	} else {
 		return false
 	}
